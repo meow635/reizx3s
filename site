@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reibeat</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background: linear-gradient(to bottom right, #1c1c1c, #3e3e3e);
+        }
+        header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .beat-card {
+            border: 1px solid #444;
+            border-radius: 10px;
+            margin: 20px;
+            padding: 15px;
+            background-color: #222;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            width: calc(33% - 40px);
+            vertical-align: top;
+            box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+        }
+        .beat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 255, 204, 0.5);
+        }
+        .beat-card img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+        button {
+            background-color: #00ffcc;
+            color: black;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00e6b3;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .beat-card {
+                width: calc(50% - 40px);
+            }
+        }
+        @media (max-width: 480px) {
+            .beat-card {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>reibeat</h1>
+    <p>Добро пожаловать на мой сайт! Здесь вы можете купить уникальные биты.</p>
+    <button onclick="window.location.href='#beats'">Посмотреть биты</button>
+    <div class="social-links">
+        <a href="https://www.youtube.com/@reizxes">YouTube</a> | 
+        <a href="https://t.me/reizx3s">Telegram</a> | 
+        <a href="https://vk.com/reizx3s">VK</a>
+    </div>
+</header>
+
+<main id="beats">
+    <h2 style="text-align: center;">Добавить бит</h2>
+    <form id="uploadForm">
+        <input type="file" accept="audio/mp3" id="mp3File" required>
+        <input type="file" accept="image/*" id="coverImage" required>
+        <button type="submit">Загрузить бит</button>
+    </form>
+
+    <h2 style="text-align: center;">Мои Биты</h2>
+    <div id="beatsList"></div>
+</main>
+
+<footer>
+    <p>&copy; 2024 reibeat. Все права защищены.</p>
+</footer>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const mp3File = document.getElementById('mp3File').files[0];
+        const coverImage = document.getElementById('coverImage').files[0];
+
+        if (mp3File && coverImage) {
+            const beatCard = document.createElement('div');
+            beatCard.className = 'beat-card';
+
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(coverImage);
+            img.alt = coverImage.name;
+
+            const title = document.createElement('h3');
+            title.textContent = mp3File.name;
+
+            const description = document.createElement('p');
+            description.textContent = 'Краткое описание бита.';
+
+            const button = document.createElement('button');
+            button.textContent = 'Купить';
+            button.onclick = () => alert('Функция покупки пока не реализована.');
+
+            beatCard.appendChild(img);
+            beatCard.appendChild(title);
+            beatCard.appendChild(description);
+            beatCard.appendChild(button);
+
+            document.getElementById('beatsList').appendChild(beatCard);
+
+            // Сброс формы после загрузки
+            this.reset();
+        }
+    });
+</script>
+
+</body>
+</html>
